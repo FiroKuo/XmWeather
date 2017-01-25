@@ -1,3 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-</resources>
+<litepal>
+
+    <dbname value="xm_weather"/>
+    <version value="1"/>
+    <list>
+        <mapping class="com.gsx.xmweather.db.Province"/>
+        <mapping class="com.gsx.xmweather.db.City"/>
+        <mapping class="com.gsx.xmweather.db.County"/>
+    </list>
+</litepal>
