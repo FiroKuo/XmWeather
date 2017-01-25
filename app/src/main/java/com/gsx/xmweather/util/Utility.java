@@ -1,8 +1,10 @@
 package com.gsx.xmweather.util;
 
+import com.google.gson.Gson;
 import com.gsx.xmweather.db.City;
 import com.gsx.xmweather.db.County;
 import com.gsx.xmweather.db.Province;
+import com.gsx.xmweather.gson.Weather;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +21,18 @@ import org.json.JSONObject;
  */
 
 public class Utility {
+
+    public static Weather handleWeatherResponse(String data){
+
+        try {
+            JSONObject jsonObject=new JSONObject(data);
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+            return new Gson().fromJson(jsonArray.getJSONObject(0).toString(),Weather.class);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public static boolean handleProvinceResponse(String data){
 

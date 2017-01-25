@@ -1,6 +1,7 @@
 package com.gsx.xmweather.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gsx.xmweather.R;
+import com.gsx.xmweather.WeatherActivity;
 import com.gsx.xmweather.db.City;
 import com.gsx.xmweather.db.County;
 import com.gsx.xmweather.db.Province;
@@ -86,6 +88,11 @@ public class ChooseAreaFragment extends Fragment {
                     queryCounties();
                 }else if (currentLevel==LEVEL_COUNTY){
 
+                    currentCounty=countyList.get(position);
+                    Intent intent =new Intent(getActivity(), WeatherActivity.class);
+                    intent.putExtra("weather_id",currentCounty.getWeatherId());
+                    startActivity(intent);
+                    getActivity().finish();
                 }
             }
         });
@@ -100,7 +107,6 @@ public class ChooseAreaFragment extends Fragment {
                 }
             }
         });
-        LogUtil.flag=false;
         queryProvinces();
     }
 
