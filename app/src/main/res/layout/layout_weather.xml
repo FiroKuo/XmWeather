@@ -8,32 +8,53 @@
     <ImageView
         android:id="@+id/iv_background"
         android:layout_width="match_parent"
-        android:scaleType="centerCrop"
-        android:layout_height="match_parent"/>
-    <ScrollView
-        android:id="@+id/sv_weather"
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:scrollbars="none">
+        android:scaleType="centerCrop"/>
 
-        <LinearLayout
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refresh"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:fitsSystemWindows="true"
-            >
+            android:layout_height="wrap_content">
 
-            <include layout="@layout/layout_title"/>
+            <ScrollView
+                android:id="@+id/sv_weather"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:scrollbars="none">
 
-            <include layout="@layout/layout_now"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true"
+                    android:orientation="vertical"
+                    >
 
-            <include layout="@layout/layout_forecast"/>
+                    <include layout="@layout/layout_title"/>
 
-            <include layout="@layout/layout_aqi"/>
+                    <include layout="@layout/layout_now"/>
 
-            <include layout="@layout/layout_suggestion"/>
-        </LinearLayout>
-    </ScrollView>
+                    <include layout="@layout/layout_forecast"/>
+
+                    <include layout="@layout/layout_aqi"/>
+
+                    <include layout="@layout/layout_suggestion"/>
+                </LinearLayout>
+            </ScrollView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <fragment
+            android:id="@+id/choose_area_frgment"
+            android:name="com.gsx.xmweather.fragment.ChooseAreaFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            />
+    </android.support.v4.widget.DrawerLayout>
 
 </FrameLayout>

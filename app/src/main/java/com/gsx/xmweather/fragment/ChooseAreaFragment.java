@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gsx.xmweather.MainActivity;
 import com.gsx.xmweather.R;
 import com.gsx.xmweather.WeatherActivity;
 import com.gsx.xmweather.db.City;
@@ -89,10 +90,21 @@ public class ChooseAreaFragment extends Fragment {
                 }else if (currentLevel==LEVEL_COUNTY){
 
                     currentCounty=countyList.get(position);
-                    Intent intent =new Intent(getActivity(), WeatherActivity.class);
-                    intent.putExtra("weather_id",currentCounty.getWeatherId());
-                    startActivity(intent);
-                    getActivity().finish();
+                    String weatherId=currentCounty.getWeatherId();
+
+                    if (getActivity() instanceof MainActivity){
+
+                        Intent intent =new Intent(getActivity(), WeatherActivity.class);
+                        intent.putExtra("weather_id",weatherId);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }else if (getActivity() instanceof WeatherActivity){
+
+                        WeatherActivity activity= (WeatherActivity) getActivity();
+                        activity.drawerLayout.closeDrawers();
+                        activity.refreshLayout.setRefreshing(true);
+                        activity.requestServer(weatherId);
+                    }
                 }
             }
         });
