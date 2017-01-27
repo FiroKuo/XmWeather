@@ -2,7 +2,9 @@ package com.gsx.xmweather.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,7 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.gsx.xmweather.MainActivity;
+import com.gsx.xmweather.CityManagerActivity;
 import com.gsx.xmweather.R;
 import com.gsx.xmweather.WeatherActivity;
 import com.gsx.xmweather.db.City;
@@ -92,19 +94,26 @@ public class ChooseAreaFragment extends Fragment {
                     currentCounty=countyList.get(position);
                     String weatherId=currentCounty.getWeatherId();
 
-                    if (getActivity() instanceof MainActivity){
-
-                        Intent intent =new Intent(getActivity(), WeatherActivity.class);
-                        intent.putExtra("weather_id",weatherId);
-                        startActivity(intent);
-                        getActivity().finish();
-                    }else if (getActivity() instanceof WeatherActivity){
-
-                        WeatherActivity activity= (WeatherActivity) getActivity();
-                        activity.drawerLayout.closeDrawers();
-                        activity.refreshLayout.setRefreshing(true);
-                        activity.requestServer(weatherId);
+                    String countyName = currentCounty.getCountyName();
+                    boolean flag=false;
+                    for (int i = 0; i < CityManagerActivity.cities.size(); i++) {
+                        if (CityManagerActivity.cities.get(i).equals(countyName)){
+                            flag=true;
+                            break;
+                        }
                     }
+                    if (!flag)
+                    CityManagerActivity.cities.add(countyName);
+
+                    SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+                    edit.putString(countyName,weatherId);
+                    edit.apply();
+
+                    Intent intent =new Intent(getActivity(), WeatherActivity.class);
+                    intent.putExtra("weather_id",weatherId);
+                    startActivity(intent);
+                    getActivity().finish();
+
                 }
             }
         });

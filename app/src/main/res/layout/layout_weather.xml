@@ -11,10 +11,6 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"/>
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/refresh"
@@ -47,14 +43,5 @@
                 </LinearLayout>
             </ScrollView>
         </android.support.v4.widget.SwipeRefreshLayout>
-
-        <fragment
-            android:id="@+id/choose_area_frgment"
-            android:name="com.gsx.xmweather.fragment.ChooseAreaFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            />
-    </android.support.v4.widget.DrawerLayout>
 
 </FrameLayout>
