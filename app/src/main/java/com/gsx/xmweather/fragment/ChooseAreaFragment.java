@@ -24,6 +24,7 @@ import com.gsx.xmweather.db.City;
 import com.gsx.xmweather.db.County;
 import com.gsx.xmweather.db.Province;
 import com.gsx.xmweather.util.HttpUtil;
+import com.gsx.xmweather.util.ListDataIO;
 import com.gsx.xmweather.util.LogUtil;
 import com.gsx.xmweather.util.Utility;
 
@@ -102,12 +103,14 @@ public class ChooseAreaFragment extends Fragment {
                             break;
                         }
                     }
-                    if (!flag)
-                    CityManagerActivity.cities.add(countyName);
+                    if (!flag) {
+                        CityManagerActivity.cities.add(countyName);
+                        ListDataIO.saveList(getActivity(),countyName+",");
+                        SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+                        edit.putString(countyName,weatherId);
+                        edit.apply();
+                    }
 
-                    SharedPreferences.Editor edit = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
-                    edit.putString(countyName,weatherId);
-                    edit.apply();
 
                     Intent intent =new Intent(getActivity(), WeatherActivity.class);
                     intent.putExtra("weather_id",weatherId);
